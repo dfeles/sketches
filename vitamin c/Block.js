@@ -1,16 +1,17 @@
 class Block {
-    constructor(x, y, i) {
+    constructor(x, y, i, bw) {
         this.originX = x;
         this.originY = y;
         this.index = i;
         this.cells = [];
+        this.bw = bw;
 
         this.startTime = time;
 
 
         for(var i = 0; i< resolution; i++){
 
-            let cell = new Cell(this.originX, this.originY, i, this.index);
+            let cell = new Cell(this.originX, this.originY, i, this.index, this.bw);
             this.cells.push(cell)
         }
     }
@@ -23,18 +24,10 @@ class Block {
         
         noFill();
         
-        // fill(255);
-        // beginShape();
-        // for(var i = 0; i< this.points.length; i++){
-        //     vertex(this.points[i].x, this.points[i].y)
-        // }
-        // endShape();
-
-        // beginShape(TRIANGLES);
-        beginShape(POINTS);
-
         
-
+        
+        
+        beginShape(POINTS);
         for(var i = 0; i< this.cells.length; i++){
             var cell = this.cells[i];
             if(cell.isDead){
@@ -43,9 +36,11 @@ class Block {
                 cell.update(i, this.originX, this.originY);
             }
             this.points.push(new p5.Vector(cell.x, cell.y));
+            
             cell.run()
-
             t += .02 + (time-this.startTime)*1;
+        }
+        for(var i = 0; i< this.cells.length; i++){
         }
         endShape();
         

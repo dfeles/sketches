@@ -4,7 +4,7 @@ var points = []
 
 var blocks = []
 
-var resolution = 720;
+var resolution = 360;
 
 function setup() {
   pixelDensity(3.0);
@@ -25,7 +25,7 @@ function setup() {
   blocks.push(block3)
 
   
-  background(3);
+  background(50);
 }
 
 var time = 0.0;
@@ -52,10 +52,16 @@ function ParametricBlend( t)
 
 
 function mouseClicked() {
-  console.log('majom');
+  console.log(key);
 
-  let block = new Block(mouseX*2-width,mouseY*2-height, blocks.length);
-  blocks.push(block)
+  if (key == "Shift") {
+    let block = new Block(mouseX*2-width,mouseY*2-height, blocks.length, true);
+    blocks.push(block)
+  } else {
+    let block = new Block(mouseX*2-width,mouseY*2-height, blocks.length, false);
+    blocks.push(block)
+
+  }
   //saveSvg
 }
 
