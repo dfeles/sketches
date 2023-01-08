@@ -4,6 +4,8 @@ var points = []
 
 var blocks = []
 
+var res = 2;
+
 var resolution = 360;
 
 function setup() {
@@ -24,6 +26,9 @@ function setup() {
   blocks.push(block2)
   blocks.push(block3)
 
+  blocks.forEach(block => {
+    block.setup();
+  })
   
   background(50);
 }
@@ -31,12 +36,12 @@ function setup() {
 var time = 0.0;
 function draw() {
   translate(width/2, height/2)
-  scale(.5,.5)
+  scale(res,res)
   blocks.forEach(function(block){
     block.run(time)
   })
 
-  time += 1;
+  time += .5;
 }
 
 
@@ -54,14 +59,15 @@ function ParametricBlend( t)
 function mouseClicked() {
   console.log(key);
 
-  if (key == "Shift") {
-    let block = new Block(mouseX*2-width,mouseY*2-height, blocks.length, true);
-    blocks.push(block)
-  } else {
-    let block = new Block(mouseX*2-width,mouseY*2-height, blocks.length, false);
-    blocks.push(block)
-
-  }
+  // if (key == "Shift") {
+    let block = new Block((mouseX-width/2)/res,(mouseY-height/2)/res, blocks.length, true);
+    blocks.push(block);
+    block.setup();
+  // } else {
+  //   let block = new Block(mouseX*2-width,mouseY*2-height, blocks.length, false);
+  //   blocks.push(block)
+  //   block.setup();
+  // }
   //saveSvg
 }
 
